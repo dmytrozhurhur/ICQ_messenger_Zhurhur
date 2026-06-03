@@ -1,0 +1,44 @@
+.root {
+    -fx-background-color: #212121;
+}
+
+.server-log {
+    -fx-control-inner-background: #212121;
+    -fx-background-color: #212121;
+    -fx-text-fill: #cccccc;
+    -fx-font-family: 'Consolas', 'Courier New', monospace;
+    -fx-font-size: 14px;
+    -fx-border-width: 0;
+    -fx-padding: 10px;
+}
+
+.server-sidebar {
+    -fx-background-color: #f5f5f5;
+    -fx-border-color: #e0e0e0;
+    -fx-border-width: 0 0 0 1px;
+}
+
+.server-sidebar-title {
+    -fx-font-size: 14px;
+    -fx-text-fill: #888888;
+    -fx-padding: 15px;
+    -fx-font-family: 'Segoe UI', sans-serif;
+    -fx-font-weight: bold;
+}
+
+.server-users-list {
+    -fx-background-color: transparent;
+    -fx-control-inner-background: transparent;
+    -fx-border-width: 0;
+}
+
+.server-users-list .list-cell {
+    -fx-text-fill: #333333;
+    -fx-font-family: 'Segoe UI', sans-serif;
+    -fx-font-size: 14px;
+    -fx-padding: 10px 15px;
+}
+
+.server-users-list .list-cell:empty {
+    -fx-background-color: transparent;
+}

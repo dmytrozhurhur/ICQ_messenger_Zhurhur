@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox alignment="CENTER" spacing="15" stylesheets="@style.css" styleClass="auth-root" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.client.AuthController">
+    <Label text="ICQ Login" styleClass="auth-title"/>
+    <HBox alignment="CENTER" spacing="10">
+        <Label text="Server IP: " styleClass="auth-label"/>
+        <TextField fx:id="hostField" text="127.0.0.1" styleClass="auth-input"/>
+    </HBox>
+    <HBox alignment="CENTER" spacing="10">
+        <Label text="User name:" styleClass="auth-label"/>
+        <TextField fx:id="usernameField" styleClass="auth-input"/>
+    </HBox>
+    <Button text="LOGIN" onAction="#onLogin" styleClass="auth-btn"/>
+    <Label fx:id="errorLabel" textFill="red"/>
+</VBox>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.image.*?>
+
+<SplitPane stylesheets="@style.css" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.client.ChatController" dividerPositions="0.3" VBox.vgrow="ALWAYS">
+    <!-- Ліва панель: Контакти (Telegram style) -->
+    <VBox styleClass="contacts-sidebar" minWidth="200">
+        <HBox styleClass="sidebar-header" alignment="CENTER_LEFT" spacing="10" onMouseClicked="#uploadAvatar" style="-fx-cursor: hand; -fx-padding: 10;">
+            <StackPane>
+                <Circle radius="20" fill="#4a76a8" />
+                <Label fx:id="myAvatarLabel" text="?" textFill="WHITE" style="-fx-font-weight: bold; -fx-font-size: 18px;"/>
+                <ImageView fx:id="myAvatarView" fitWidth="40" fitHeight="40">
+                    <clip>
+                        <Circle radius="20" centerX="20" centerY="20"/>
+                    </clip>
+                </ImageView>
+            </StackPane>
+            <VBox alignment="CENTER_LEFT">
+                <Label fx:id="myNameLabel" text="My Name" style="-fx-font-weight: bold; -fx-text-fill: #333333; -fx-font-size: 14px;"/>
+                <Label text="Change Photo..." style="-fx-text-fill: #777777; -fx-font-size: 11px;"/>
+            </VBox>
+        </HBox>
+        <ListView fx:id="contactsList" styleClass="contacts-list" VBox.vgrow="ALWAYS"/>
+    </VBox>
+    
+    <!-- Права панель: Чат -->
+    <BorderPane minWidth="400">
+        <top>
+            <HBox styleClass="chat-header" alignment="CENTER_LEFT" spacing="10">
+                <Label fx:id="chatTitle" text="Select a chat" styleClass="chat-title"/>
+            </HBox>
+        </top>
+        <center>
+            <ScrollPane fx:id="scrollPane" fitToWidth="true" styleClass="chat-scroll">
+                <VBox fx:id="messagesContainer" spacing="10" styleClass="chat-container"/>
+            </ScrollPane>
+        </center>
+        <bottom>
+            <VBox>
+                <HBox fx:id="replyBox" spacing="10" styleClass="reply-box">
+                    <Label fx:id="replyLabel" text="Відповідь: ..." HBox.hgrow="ALWAYS" maxWidth="Infinity" styleClass="reply-label"/>
+                    <Button text="✕" onAction="#cancelReply" styleClass="btn-cancel"/>
+                </HBox>
+                <HBox spacing="10" styleClass="input-container" alignment="CENTER">
+                    <Button text="📎" onAction="#onAttachFile" styleClass="btn-icon" fx:id="attachBtn" disable="true"/>
+                    <TextField fx:id="inputField" promptText="Write a message..." HBox.hgrow="ALWAYS" styleClass="chat-input" onAction="#onSend" disable="true"/>
+                    <Button text="➤" onAction="#onSend" styleClass="btn-send-icon" fx:id="sendBtn" disable="true"/>
+                </HBox>
+            </VBox>
+        </bottom>
+    </BorderPane>
+</SplitPane>
