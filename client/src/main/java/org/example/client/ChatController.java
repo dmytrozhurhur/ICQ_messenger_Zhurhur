@@ -271,7 +271,11 @@ public class ChatController {
         messageBox.getChildren().add(senderLabel);
 
         if (msg.getReplyToId() != null) {
-            Label replyIndicator = new Label("Replying to ID " + msg.getReplyToId());
+            String replyText = findMessageTextById(msg.getReplyToId());
+            if (replyText == null) {
+                replyText = "Message ID " + msg.getReplyToId();
+            }
+            Label replyIndicator = new Label("Відповідь: " + replyText);
             replyIndicator.getStyleClass().add("message-reply");
             messageBox.getChildren().add(replyIndicator);
         }
@@ -362,6 +366,39 @@ public class ChatController {
                 return false;
             });
         });
+    }
+
+    private String findMessageTextById(Long id) {
+        for (javafx.scene.Node row : messagesContainer.getChildren()) {
+            if (row instanceof HBox) {
+                for (javafx.scene.Node child : ((HBox)row).getChildren()) {
+                    if (child instanceof VBox && child.getUserData() != null && child.getUserData().equals(id)) {
+                        return extractTextFromMessageBox((VBox)child);
+                    }
+                    if (child instanceof HBox) { // avatar wrapper
+                        for (javafx.scene.Node subChild : ((HBox)child).getChildren()) {
+                            if (subChild instanceof VBox && subChild.getUserData() != null && subChild.getUserData().equals(id)) {
+                                return extractTextFromMessageBox((VBox)subChild);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
+    private String extractTextFromMessageBox(VBox messageBox) {
+        for (javafx.scene.Node n : messageBox.getChildren()) {
+            if (n instanceof Text) {
+                return ((Text)n).getText();
+            } else if (n instanceof Button && ((Button)n).getText().startsWith("Завантажити")) {
+                return "[Фото/Файл]";
+            } else if (n instanceof ImageView) {
+                return "[Фото]";
+            }
+        }
+        return "Повідомлення";
     }
 
     private void requestDelete(Long id) {

@@ -96,19 +96,23 @@ public class ClientHandler implements Runnable {
                         histResp.setReceiver(msg.getReceiver());
                         StringBuilder sb = new StringBuilder();
                         for (Message m : history) {
+                            String idStr = m.getId() == null ? "" : m.getId().toString();
                             String type = m.getType() != null ? m.getType().name() : "TEXT";
                             String sender = m.getSender() != null ? m.getSender() : "";
                             String receiver = m.getReceiver() != null ? m.getReceiver() : "";
                             String textBase64 = m.getText() == null ? "" : java.util.Base64.getEncoder().encodeToString(m.getText().getBytes(java.nio.charset.StandardCharsets.UTF_8));
                             String fileNameBase64 = m.getFileName() == null ? "" : java.util.Base64.getEncoder().encodeToString(m.getFileName().getBytes(java.nio.charset.StandardCharsets.UTF_8));
                             String fileData = m.getFileBase64() == null ? "" : m.getFileBase64();
+                            String replyToIdStr = m.getReplyToId() == null ? "" : m.getReplyToId().toString();
 
-                            sb.append(type).append("::")
+                            sb.append(idStr).append("::")
+                              .append(type).append("::")
                               .append(sender).append("::")
                               .append(receiver).append("::")
                               .append(textBase64).append("::")
                               .append(fileNameBase64).append("::")
-                              .append(fileData).append("|||");
+                              .append(fileData).append("::")
+                              .append(replyToIdStr).append("|||");
                         }
                         histResp.setText(sb.toString());
                         sendMessage(histResp);

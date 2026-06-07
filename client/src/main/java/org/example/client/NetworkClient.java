@@ -109,13 +109,15 @@ public class NetworkClient {
                         for (String p : parts) {
                             if (p.trim().isEmpty()) continue;
                             String[] mParts = p.split("::", -1);
-                            if (mParts.length >= 6) {
-                                MessageType type = MessageType.valueOf(mParts[0]);
-                                Message m = new Message(type, mParts[1]);
-                                m.setReceiver(mParts[2]);
-                                if (!mParts[3].isEmpty()) m.setText(new String(java.util.Base64.getDecoder().decode(mParts[3]), java.nio.charset.StandardCharsets.UTF_8));
-                                if (!mParts[4].isEmpty()) m.setFileName(new String(java.util.Base64.getDecoder().decode(mParts[4]), java.nio.charset.StandardCharsets.UTF_8));
-                                if (!mParts[5].isEmpty()) m.setFileBase64(mParts[5]);
+                            if (mParts.length >= 8) {
+                                MessageType type = MessageType.valueOf(mParts[1]);
+                                Message m = new Message(type, mParts[2]);
+                                if (!mParts[0].isEmpty()) m.setId(Long.parseLong(mParts[0]));
+                                m.setReceiver(mParts[3]);
+                                if (!mParts[4].isEmpty()) m.setText(new String(java.util.Base64.getDecoder().decode(mParts[4]), java.nio.charset.StandardCharsets.UTF_8));
+                                if (!mParts[5].isEmpty()) m.setFileName(new String(java.util.Base64.getDecoder().decode(mParts[5]), java.nio.charset.StandardCharsets.UTF_8));
+                                if (!mParts[6].isEmpty()) m.setFileBase64(mParts[6]);
+                                if (!mParts[7].isEmpty()) m.setReplyToId(Long.parseLong(mParts[7]));
                                 parsedHistory.add(m);
                             }
                         }
